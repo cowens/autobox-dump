@@ -5,18 +5,28 @@ use strict;
 
 use base "autobox";
 
-use autobox::expr::dump::scalar;
-use autobox::expr::dump::array;
-use autobox::expr::dump::hash;
+our $VERSION = '20090425';
 
 sub import {
 	my $class = shift;
+
+	my $dumper = "autobox::expr::dump::inner";
+
 	$class->SUPER::import(
-		SCALAR => "autobox::expr::dump::scalar",
-		ARRAY  => "autobox::expr::dump::array",
-		HASH   => "autobox::expr::dump::hash",
+		SCALAR => $dumper,
+		ARRAY  => $dumper,
+		HASH   => $dumper,
 	);
 }
+
+{
+    package autobox::expr::dump::inner;
+    sub perl {
+	require Data::Dumper;
+	return Data::Dumper::Dumper($_[0]);
+    }
+}
+
 
 =head1 NAME
 
@@ -25,10 +35,6 @@ autobox::expr::dump - human/perl readable strings from the results of an EXPR
 =head1 VERSION
 
 Version 20090425
-
-=cut
-
-our $VERSION = '20090425';
 
 =head1 SYNOPSIS
 
