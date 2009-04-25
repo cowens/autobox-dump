@@ -54,24 +54,24 @@ expression.
     use autobox::expr::dump;
 
     my $foo = "foo";
-    print $foo->perl;   #$VAR1 = 'foo';
+    print $foo->perl;   # 'foo';
 
-    print +(5*6)->perl; #$VAR1 = 30;
+    print +(5*6)->perl; # 30;
 
     my @a = (1..3);
 
     print @a->perl;
-    #$VAR1 = [
-    #          1,
-    #          2,
-    #          3
-    #        ];
+    # [
+    #  1,
+    #  2,
+    #  3
+    # ];
 
     print {a=>1, b=>2}->perl;
-    #$VAR1 = {
-    #          'a' => 1,
-    #          'b' => 2
-    #        };
+    # {
+    #  'a' => 1,
+    #  'b' => 2
+    # };
 
 =head1 AUTHOR
 
