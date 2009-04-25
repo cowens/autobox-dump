@@ -2,9 +2,9 @@
 
 use strict;
 use warnings;
-use Test::More tests => 6;
+use Test::More tests => 9;
 
-use autobox::expr::dump;
+use autobox::dump;
 
 is eval 5->perl, 5;
 
@@ -20,3 +20,11 @@ is eval $num->perl, $num;
 
 my $ref = \$num;
 is ${eval $ref->perl}, $$ref;
+
+#make sure non-printable charactrs can be seen
+is "\x{0A}"->perl, qq("\\n"\n);
+
+is "\x{00}"->perl, qq("\\0"\n);
+
+is "\x{7F}"->perl, qq("\\177"\n);
+

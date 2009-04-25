@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Test::More tests => 4;
 
-use autobox::expr::dump;
+use autobox::dump;
 
 my @a = qw/a b c d/;
 my $ref = \@a;

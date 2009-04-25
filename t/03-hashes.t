@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Test::More tests => 3;
 
-use autobox::expr::dump;
+use autobox::dump;
 
 sub func {
 	return { a => 1, b => 2 };

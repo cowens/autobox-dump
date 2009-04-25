@@ -1,6 +1,6 @@
 Build.PL
 Changes
-lib/autobox/expr/dump.pm
+lib/autobox/dump.pm
 MANIFEST			This list of files
 MANIFEST.SKIP
 README
