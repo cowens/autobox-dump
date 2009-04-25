@@ -1,11 +1,13 @@
 Build.PL
 Changes
-MANIFEST
-README
-lib/autobox/expr/dump/scalar.pm
-lib/autobox/expr/dump/array.pm
-lib/autobox/expr/dump/hash.pm
 lib/autobox/expr/dump.pm
+MANIFEST			This list of files
+MANIFEST.SKIP
+README
 t/00-load.t
+t/01-scalars.t
+t/02-arrays.t
+t/03-hashes.t
+t/boilerplate.t
 t/pod-coverage.t
 t/pod.t
