@@ -2,8 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 4;
-use Data::Dumper;
+use Test::More tests => 3;
 
 use autobox::expr::dump;
 
@@ -14,11 +13,8 @@ sub func {
 my %h = ( one => 1, two => 2, three => [1, 1, 1] );
 my $ref = \%h;
 
-is %h->perl, Dumper \%h;
+is_deeply eval %h->perl, \%h;
 
-is {%h}->perl, Dumper {%h};
+is_deeply eval $ref->perl, $ref;
 
-is $ref->perl, Dumper $ref;
-
-is func->perl, Dumper func;
-
+is_deeply eval func->perl, func;

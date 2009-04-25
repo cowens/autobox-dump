@@ -3,21 +3,20 @@
 use strict;
 use warnings;
 use Test::More tests => 6;
-use Data::Dumper;
 
 use autobox::expr::dump;
 
-is 5->perl, Dumper 5;
+is eval 5->perl, 5;
 
-is "foo"->perl, Dumper "foo";
+is eval "foo"->perl, "foo";
 
-is +(5*6)->perl, Dumper(5*6);
+is eval( +(5*6)->perl ), 30;
 
 my $str = "bar";
-is $str->perl, Dumper $str;
+is eval $str->perl, $str;
 
 my $num = 100.34;
-is $num->perl, Dumper $num;
+is eval $num->perl, $num;
 
 my $ref = \$num;
-is $ref->perl, Dumper $ref;
+is ${eval $ref->perl}, $$ref;

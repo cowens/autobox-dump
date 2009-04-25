@@ -19,11 +19,18 @@ sub import {
 	);
 }
 
+
 {
     package autobox::expr::dump::inner;
+
     sub perl {
-	require Data::Dumper;
-	return Data::Dumper::Dumper($_[0]);
+        require Data::Dumper;
+
+        my $dumper = Data::Dumper->new( [$_[0]] );
+        $dumper->Indent(1)->Terse(1);
+        $dumper->Sortkeys(1) if $dumper->can("Sortkeys");
+
+        return $dumper->Dump;
     }
 }
 
