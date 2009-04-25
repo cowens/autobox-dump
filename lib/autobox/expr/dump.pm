@@ -79,13 +79,7 @@ Chas. J Owens IV, C<< <chas.owens at gmail.com> >>
 
 =head1 BUGS
 
-Literal lists (e.g. C<(1 .. 3)->perl>) aren't handled correctly.
-
-Function calls that return lists are not handled correctly.
-
-Both of these bugs come from the fact that ->perl is treating putting them
-in scalar context.  This can be worked around by putting the value in an
-anonyous arrayref: C<[(1..3)]->perl>.
+Has all the issues L<autobox> has.
 
 Please report any bugs or feature requests to XXXXXXX
 
