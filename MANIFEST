@@ -11,3 +11,5 @@ t/03-hashes.t
 t/boilerplate.t
 t/pod-coverage.t
 t/pod.t
+Makefile.PL
+META.yml
