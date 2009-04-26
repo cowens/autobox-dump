@@ -1,24 +1,25 @@
 package autobox::dump;
+# vi: ht=4 sw=4 ts=4 et :
 
 use warnings;
 use strict;
 
 use base "autobox";
 
-our $VERSION = '20090425.1630';
+our $VERSION = '20090426.0747';
 
 sub import {
-	my $class = shift;
+    my $class = shift;
 
-	my $dumper = "autobox::dump::inner";
+    my $dumper = "autobox::dump::inner";
 
-	$class->SUPER::import(
-		SCALAR => $dumper,
-		ARRAY  => $dumper,
-		HASH   => $dumper,
-	);
+    $class->SUPER::import(
+        SCALAR => $dumper,
+        ARRAY  => $dumper,
+        HASH   => $dumper,
+        CODE   => $dumper,
+    );
 }
-
 
 {
     package autobox::dump::inner;
@@ -27,9 +28,9 @@ sub import {
         require Data::Dumper;
 
         my $dumper = Data::Dumper->new( [$_[0]] );
-	$dumper->Useqq(1);
-        $dumper->Indent(1)->Terse(1);
+        $dumper->Indent(1)->Terse(1)->Useqq(1);
         $dumper->Sortkeys(1) if $dumper->can("Sortkeys");
+        $dumper->Deparse(1)  if $dumper->can("Deparse");
 
         return $dumper->Dump;
     }
@@ -42,7 +43,7 @@ autobox::dump - human/perl readable strings from the results of an EXPR
 
 =head1 VERSION
 
-Version 20090425.1630
+Version 20090426.0747
 
 =head1 SYNOPSIS
 
@@ -73,6 +74,23 @@ expression.
     #  'a' => 1,
     #  'b' => 2
     # };
+    
+    sub func {
+        my ($x, $y) = @_;
+        return $x + $y;
+    }
+
+    my $func = \&func;
+    print $func->perl;
+    #sub {
+    #    BEGIN {
+    #        $^H{'autobox_scope'} = q(154456408);
+    #        $^H{'autobox'} = q(HASH(0x93a3e00));
+    #        $^H{'autobox_leave'} = q(Scope::Guard=ARRAY(0x9435078));
+    #    }
+    #    my($x, $y) = @_;
+    #    return $x + $y;
+    #}
 
 =head1 AUTHOR
 
@@ -81,6 +99,13 @@ Chas. J Owens IV, C<< <chas.owens at gmail.com> >>
 =head1 BUGS
 
 Has all the issues L<autobox> has.
+
+Has all the issues L<Data::Dumper> has.
+
+This pragma errs on the side of human readable to the detriment of
+Perl readable.  In particular it uses the terse and deparse options
+of Data::Dumper.  These options may create code that cannot be 
+eval'ed.
 
 Please report any bugs or feature requests to 
 http://github.com/cowens/autobox-dump/issues
