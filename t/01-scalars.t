@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 9;
+use Test::More tests => 11;
 
 use autobox::dump;
 
@@ -28,3 +28,7 @@ is "\x{00}"->perl, qq("\\0"\n);
 
 is "\x{7F}"->perl, qq("\\177"\n);
 
+#test passing of options
+is "\x{7F}"->perl([Useqq => 0]), "\$VAR1 = '\x{7F}';\n";
+
+is "foo"->perl([Varname => "foo"], qw/Useqq/), qq(\$foo1 = "foo";\n);
