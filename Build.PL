@@ -13,6 +13,11 @@ my $builder = Module::Build->new(
     },
     add_to_cleanup      => [ 'autobox-dump-*' ],
     create_makefile_pl => 'traditional',
+    meta_merge => {
+        resources => {
+            repository => 'https://github.com/cowens/autobox-dump',
+        }
+    },
 );
 
 $builder->create_build_script();
